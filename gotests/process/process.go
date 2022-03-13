@@ -30,11 +30,13 @@ type Options struct {
 	PrintInputs        bool     // Print function parameters as part of error messages.
 	Subtests           bool     // Print tests using Go 1.7 subtests
 	Parallel           bool     // Print tests that runs the subtests in parallel.
+	Named              bool     // Create Map instead of slice
 	WriteOutput        bool     // Write output to test file(s).
 	Template           string   // Name of custom template set
 	TemplateDir        string   // Path to custom template set
 	TemplateParamsPath string   // Path to custom parameters json file(s).
 	TemplateData       [][]byte // Data slice for templates
+	UseGoCmp           bool     // Use google/go-cmp instead of reflect.DeepEquals
 }
 
 // Generates tests for the Go files defined in args with the given options.
@@ -96,10 +98,12 @@ func parseOptions(out io.Writer, opt *Options) *gotests.Options {
 		PrintInputs:    opt.PrintInputs,
 		Subtests:       opt.Subtests,
 		Parallel:       opt.Parallel,
+		Named:          opt.Named,
 		Template:       opt.Template,
 		TemplateDir:    opt.TemplateDir,
 		TemplateParams: templateParams,
 		TemplateData:   opt.TemplateData,
+		UseGoCmp:       opt.UseGoCmp,
 	}
 }
 
